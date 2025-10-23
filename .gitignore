@@ -1,0 +1,50 @@
+# ======================
+# Build & Binary Files
+# ======================
+/build/
+/bin/
+/*.out
+*.o
+*.obj
+*.exe
+*.so
+*.a
+*.dll
+
+# ======================
+# Logs & Temporary Files
+# ======================
+/logs/
+/tmp/
+/*.log
+*.pid
+*.sock
+
+# ======================
+# IDE / Editor Files
+# ======================
+# VSCode
+.vscode/
+# CLion / JetBrains
+.idea/
+# Vim / Emacs
+*.swp
+*~
+# Mac
+.DS_Store
+
+# ======================
+# System Files
+# ======================
+Thumbs.db
+ehthumbs.db
+desktop.ini
+
+# ======================
+# Backup / Test Artifacts
+# ======================
+/test_*
+/*.bak
+/*.tmp
+core
+core.*
