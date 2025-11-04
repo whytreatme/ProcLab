@@ -30,6 +30,7 @@ int main(int argc, char *argv[]){
     pid_t pid;
 
     while(true){
+        sleep(10);
         pid = fork();
         if(pid < 0){
             cerr << "fork error: " << strerror(errno) << endl;
@@ -45,6 +46,7 @@ int main(int argc, char *argv[]){
             _exit(127);
         }
     }
+    exit(0);
     return 0;
 }
 
@@ -53,7 +55,7 @@ void CHLD_EXIT(int sign){
     pid_t pid;
 
     while((pid = waitpid(-1, &sts ,WNOHANG)) > 0){
-        write(STDOUT_FILENO, "child exited\n", 13);
+        ssize_t n = write(STDOUT_FILENO, "child exited\n", 13);
     }
 }
 
@@ -61,6 +63,7 @@ void FATH_EXIT(int sign){
     signal(SIGTERM, SIG_IGN);
     signal(SIGCHLD, SIG_IGN);
     kill(0, SIGTERM);
+    pid_t pid = getpid();
     
     int st;
     while (true) {
@@ -72,4 +75,7 @@ void FATH_EXIT(int sign){
             break;
         }
     }
+    //kill(pid, 0);
+    _exit(0);
+    
 }
