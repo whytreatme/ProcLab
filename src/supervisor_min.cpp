@@ -1,3 +1,8 @@
+/*
+* 这个程序用来实现简单的子进程执行命令，父进程等到信号中断的处理 
+* 主要是用于演示信号处理函数的设计以及信号屏蔽的方法
+*/
+
 #include <iostream>
 #include <unistd.h>
 #include <sys/types.h>

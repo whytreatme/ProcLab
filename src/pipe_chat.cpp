@@ -43,8 +43,11 @@ int main(){
 
             //从管道读出来
             for(int k = 3; k < 6; k++){
-                read_n(c2p[0], msg[k], sizeof(msg[k]));
-                cout << msg[k] << endl;
+                ssize_t n = read_n(c2p[0], msg[k], sizeof(msg[k]));
+                //cout << msg[k] << endl;
+                if(n > 0){
+                    n = write_n(STDOUT_FILENO,msg[k], n);
+                }
             }
             int sts;
             if(waitpid(-1, &sts, 0) < 0){
@@ -76,7 +79,7 @@ int main(){
 ssize_t write_n(int fd, const void *buf, size_t count){
     size_t total = 0;
     while(total < count){
-        ssize_t n = write(fd, (char*)buf + total, count - total) 
+        ssize_t n = write(fd, (char*)buf + total, count - total); 
         if(n == -1){
             //信号中断的恢复
             if(errno == EINTR) continue;
@@ -91,7 +94,7 @@ ssize_t read_n(int fd, void *buf, size_t count){
     ssize_t n = 0;
     size_t total = 0;
     while(total < count){
-        ssize_t n = read(fd, (char*)buf + total, count - total)
+        ssize_t n = read(fd, (char*)buf + total, count - total);
         if(n < 0){
             if(errno == EINTR) continue;
             return -1;
